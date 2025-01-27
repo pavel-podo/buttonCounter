@@ -1,0 +1,33 @@
+ <script>https://github.com/pavel-podo/buttonCounter/tree/main
+        let arr = []
+        let body =document.querySelector("body");
+        let div = document.createElement("div");
+        body.before(div)
+        div.style.width = "100%";
+        //div.style.height = "100px";
+        div.style.backgroundColor = "silver";
+
+        let clickCount = 0;
+
+        document.addEventListener("click", (event) => {
+            if (event.target.tagName === "BUTTON" && event.target.textContent === "start") {
+                incrementClickCount();
+            }
+        });
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Enter" && document.activeElement.tagName === "BUTTON" && document.activeElement.textContent === "start") {
+                event.preventDefault(); // Предотвращаем двойное срабатывание
+                incrementClickCount();
+            }
+        });
+        function incrementClickCount() {
+            clickCount++;
+            // let element = {}
+            // element.name='';
+            // element.time = new Date().getHours()+':'+new Date().getMinutes();
+            // arr.push(element)
+            div.innerHTML = `пакетов в сделано: ${clickCount}`;
+            console.log(`Количество нажатий: ${clickCount}`);
+        }
+
+    </script>
