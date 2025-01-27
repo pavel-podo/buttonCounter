@@ -1,4 +1,4 @@
- <script>https://github.com/pavel-podo/buttonCounter/tree/main
+ <script>
         let arr = []
         let body =document.querySelector("body");
         let div = document.createElement("div");
