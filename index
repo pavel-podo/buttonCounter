@@ -1,33 +1,89 @@
- <script>
+    <script>
+
+        let containerIdText = 'contsiner ID: '
+        let ButtonText = 'start'
+
         let arr = []
-        let body =document.querySelector("body");
-        let div = document.createElement("div");
-        body.before(div)
-        div.style.width = "100%";
-        //div.style.height = "100px";
-        div.style.backgroundColor = "silver";
+        // let arr = [
+        // {name: 'text', time: '12:00'},
+        // {name: 'text2', time: '12:00'},
+        // {name: 'tex3t', time: '12:00'},
+        // {name: 'tex4t', time: '12:00'},
+        // {name: 'tex5t', time: '12:00'},
+        // ]
+
 
         let clickCount = 0;
-
         document.addEventListener("click", (event) => {
-            if (event.target.tagName === "BUTTON" && event.target.textContent === "start") {
+            if (event.target.tagName === "BUTTON" && event.target.textContent === ButtonText) {
                 incrementClickCount();
             }
         });
         document.addEventListener("keydown", (event) => {
-            if (event.key === "Enter" && document.activeElement.tagName === "BUTTON" && document.activeElement.textContent === "start") {
-                event.preventDefault(); // Предотвращаем двойное срабатывание
+            if (event.key === "Enter" && document.activeElement.tagName === "BUTTON" && document.activeElement.textContent === ButtonText) {
                 incrementClickCount();
             }
         });
+
+
+
         function incrementClickCount() {
-            clickCount++;
-            // let element = {}
-            // element.name='';
-            // element.time = new Date().getHours()+':'+new Date().getMinutes();
-            // arr.push(element)
-            div.innerHTML = `пакетов в сделано: ${clickCount}`;
-            console.log(`Количество нажатий: ${clickCount}`);
+
+            const divs = document.querySelectorAll("div");
+            const targetDiv = Array.from(divs).find(div => div.textContent.includes(containerIdText));
+
+            if (targetDiv) {
+                const id = targetDiv.textContent.slice(containerIdText.length, targetDiv.textContent.length)
+                console.log("id ", id);
+                //console.log("Найденный div:", targetDiv);
+                if (!arr.some(e => e.name === id)) {
+                    arr.push({ name: id, time: `${new Date().getHours()}:${new Date().getMinutes()}` })
+                    console.log(`dodano kontener - ${id}`);
+                    console.log(`ilość - ${arr.length}`);
+                } else {
+                    console.log('Container dodany sczesnij')
+                    console.log(`ilość - ${arr.length}`);
+
+                }
+
+            } else {
+                console.log("Div с текстом 'container' не найден.");
+            }
+
         }
 
+
+        const ilosc = () => console.log(arr.length)
+        const arToTable = (ar =arr) => {
+            let table = document.createElement('table')
+            let thead = document.createElement('thead')
+            let tbody = document.createElement('tbody')
+            let tr = document.createElement('tr')
+            let th1 = document.createElement('th')
+            let th2 = document.createElement('th')
+            th1.textContent = 'name'
+            th2.textContent = 'time'
+            tr.appendChild(th1)
+            tr.appendChild(th2)
+            thead.appendChild(tr)
+            table.appendChild(thead)
+            ar.forEach(e => {
+                let tr = document.createElement('tr')
+                let td1 = document.createElement('td')
+                let td2 = document.createElement('td')
+                td1.textContent = e.name
+                td2.textContent = e.time
+                tr.appendChild(td1)
+                tr.appendChild(td2)
+                tbody.appendChild(tr)
+            })
+            table.appendChild(tbody)
+            document.body.appendChild(table)
+            console.log(table.outerHTML)
+            
+
+
+
+
+        }       
     </script>
